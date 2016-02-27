@@ -1,0 +1,27 @@
+CREATE TABLE Viesti
+(
+    id integer PRIMARY KEY NOT NULL,
+    paivamaara date NOT NULL,
+    teksti varchar(200) NOT NULL,
+    kirjoittaja varchar(50) NOT NULL,
+    keskustelu integer NOT NULL,
+    FOREIGN KEY(keskustelu) REFERENCES Keskustelu(id)
+);
+
+CREATE TABLE Keskustelu
+(
+    id integer PRIMARY KEY NOT NULL,
+    p‰iv‰m‰‰r‰ date NOT NULL,
+    nimi varchar(50) NOT NULL,
+    aihealue integer NOT NULL,
+    FOREIGN KEY(aihealue) REFERENCES Aihealue(id)
+);
+
+
+CREATE TABLE Aihealue
+(
+    id integer PRIMARY KEY NOT NULL,
+    paivamaara date NOT NULL,
+    nimi varchar(50) NOT NULL,
+    viestit integer
+);

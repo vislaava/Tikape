@@ -1,7 +1,7 @@
 CREATE TABLE Viesti
 (
     id integer PRIMARY KEY NOT NULL,
-    paivamaara TIMESTAMP NOT NULL,
+    paivamaara date NOT NULL DEFAULT CURRENT_TIMESTAMP,
     teksti varchar(200) NOT NULL,
     kirjoittaja varchar(50) NOT NULL,
     keskustelu integer NOT NULL,
@@ -11,10 +11,8 @@ CREATE TABLE Viesti
 CREATE TABLE Keskustelu
 (
     id integer PRIMARY KEY NOT NULL,
-    p‰iv‰m‰‰r‰ TIMESTAMP NOT NULL,
     nimi varchar(50) NOT NULL,
     aihealue integer NOT NULL,
-    kirjoittaja varchar (50) NOT NULL,
     FOREIGN KEY(aihealue) REFERENCES Aihealue(id)
 );
 
@@ -22,5 +20,6 @@ CREATE TABLE Keskustelu
 CREATE TABLE Aihealue
 (
     id integer PRIMARY KEY NOT NULL,
-    nimi varchar(50) NOT NULL
+    nimi varchar(50) NOT NULL,
+    viestit integer
 );

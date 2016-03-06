@@ -6,11 +6,7 @@
 package tikape.ryhmatyo;
 
 import java.sql.*;
-import java.util.HashMap;
 import java.util.List;
-import spark.ModelAndView;
-import static spark.Spark.get;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class Main {
     
@@ -23,12 +19,6 @@ public class Main {
         for (Viesti pyora : viestit) {
             System.out.println(pyora.getId());
         }
-        
-        /////////get("/sivu", (req, res) -> {
-        /////////    HashMap map = new HashMap<>();
-        /////////
-        /////////    return new ModelAndView(map, "index");
-        /////////}, new ThymeleafTemplateEngine());.
 
     }
 }

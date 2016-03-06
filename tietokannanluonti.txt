@@ -1,7 +1,11 @@
 CREATE TABLE Viesti
 (
     id integer PRIMARY KEY NOT NULL,
+<<<<<<< HEAD
     paivamaara TIMESTAMP NOT NULL,
+=======
+    paivamaara date NOT NULL DEFAULT CURRENT_TIMESTAMP,
+>>>>>>> dd6e4b8f281dda3697d2df69213a478e77f7f9f0
     teksti varchar(200) NOT NULL,
     kirjoittaja varchar(50) NOT NULL,
     keskustelu integer NOT NULL,
@@ -11,7 +15,10 @@ CREATE TABLE Viesti
 CREATE TABLE Keskustelu
 (
     id integer PRIMARY KEY NOT NULL,
+<<<<<<< HEAD
     päivämäärä TIMESTAMP NOT NULL,
+=======
+>>>>>>> dd6e4b8f281dda3697d2df69213a478e77f7f9f0
     nimi varchar(50) NOT NULL,
     aihealue integer NOT NULL,
     kirjoittaja varchar (50) NOT NULL,
@@ -22,5 +29,10 @@ CREATE TABLE Keskustelu
 CREATE TABLE Aihealue
 (
     id integer PRIMARY KEY NOT NULL,
+<<<<<<< HEAD
     nimi varchar(50) NOT NULL
+=======
+    nimi varchar(50) NOT NULL,
+    viestit integer
+>>>>>>> dd6e4b8f281dda3697d2df69213a478e77f7f9f0
 );

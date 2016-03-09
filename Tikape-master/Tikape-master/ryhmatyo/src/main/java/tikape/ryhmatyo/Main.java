@@ -15,13 +15,13 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:Keskustelupalsta.db");
+        Database database = new Database("jdbc:sqlite:testi.db");
         database.setDebugMode(true);
 
         database.update("INSERT INTO Viesti (paivamaara, teksti, kirjoittaja, keskustelu) VALUES ('2016-02-22', 'Hola!', 'Tanja', '1')");
         
         List<Viesti> viestit = database.queryAndCollect("SELECT * FROM Viesti",
-                rs -> new Viesti(rs.getInt("id"), rs.getDate("paivamaara"), rs.getString("teksti"), rs.getString("kirjoittaja"), rs.getInt("keskustelu")));
+                rs -> new Viesti(rs.getInt("id"), rs.getString("paivamaara"), rs.getString("teksti"), rs.getString("kirjoittaja"), rs.getInt("keskustelu")));
 
         for (Viesti viesti : viestit) {
             System.out.println(viesti.getTeksti());

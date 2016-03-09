@@ -13,12 +13,12 @@ import java.sql.Date;
  */
 public class Viesti {
     private int id;
-    private Date paivamaara;
+    private String paivamaara;
     private String teksti;
     private String kirjoittaja;
     private int keskustelu;
 
-    public Viesti(int id, Date paivamaara, String teksti, String kirjoittaja, int keskustelu) {
+    public Viesti(int id, String paivamaara, String teksti, String kirjoittaja, int keskustelu) {
         this.id = id;
         this.paivamaara = paivamaara;
         this.teksti = teksti;
@@ -34,11 +34,11 @@ public class Viesti {
         this.id = id;
     }
 
-    public Date getPaivamaara() {
+    public String getPaivamaara() {
         return paivamaara;
     }
 
-    public void setPaivamaara(Date paivamaara) {
+    public void setPaivamaara(String paivamaara) {
         this.paivamaara = paivamaara;
     }
     

@@ -27,7 +27,7 @@ public class ViestiDao {
         this.database = database;
     }
  
-    @Override
+//    @Override
     public Viesti findOne(String key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pyora WHERE rekisterinumero = ?");
@@ -40,7 +40,7 @@ public class ViestiDao {
         }
 
         int id = rs.getInt("id");
-        Date paivamaara = rs.getDate("paivamaara");
+        String paivamaara = rs.getString("paivamaara");
         String teksti = rs.getString("teksti");
         String kirjoittaja = rs.getString("kirjoittaja");
         int keskustelu = rs.getInt("keskustelu");
@@ -54,13 +54,13 @@ public class ViestiDao {
         return p;
     }
 
-    @Override
+//    @Override
     public List<Viesti> findAll() throws SQLException {
 	// ei toteutettu
 	return null;
     }
 
-    @Override
+//    @Override
     public void delete(String key) throws SQLException {
         // ei toteutettu
     }

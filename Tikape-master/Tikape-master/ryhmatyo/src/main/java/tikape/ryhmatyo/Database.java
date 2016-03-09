@@ -32,8 +32,9 @@ public class Database<T> {
     
     private String databaseAddress;
 
-    public Database(String databaseAddress) throws ClassNotFoundException {
+    public Database(String databaseAddress) throws ClassNotFoundException, SQLException {
         this.databaseAddress = databaseAddress;
+        this.connection = DriverManager.getConnection(databaseAddress);
     }
 
     public Connection getConnection() throws SQLException {

@@ -22,12 +22,22 @@ public class Database<T> {
     private boolean debug;
     private Connection connection;
 
-    public Database(String address) throws Exception {
-        this.connection = DriverManager.getConnection(address);
-    }
+//    public Database(String address) throws Exception {
+//        this.connection = DriverManager.getConnection(address);
+//    }
 
     public void setDebugMode(boolean d) {
         debug = d;
+    }
+    
+    private String databaseAddress;
+
+    public Database(String databaseAddress) throws ClassNotFoundException {
+        this.databaseAddress = databaseAddress;
+    }
+
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(databaseAddress);
     }
 
     public List<T> queryAndCollect(String query, Collector<T> col) throws SQLException {
@@ -49,6 +59,21 @@ public class Database<T> {
         rs.close();
         stmt.close();
         return rows;
+    }
+    
+    public int update(String updateQuery) throws SQLException {
+        Statement stmt = connection.createStatement();
+        int changes = stmt.executeUpdate(updateQuery);
+
+        if(debug) {
+            System.out.println("---");
+            System.out.println(updateQuery);
+            System.out.println("Changed rows: " + changes);
+            System.out.println("---");
+        }
+        stmt.close();
+
+        return changes;
     }
 
     private void debug(ResultSet rs) throws SQLException {

@@ -10,10 +10,10 @@ package tikape.ryhmatyo;
  * @author DELL
  */
 public class Aihealue {
+
     private int id;
     private String nimi;
 
-    
     public Aihealue(int id, String nimi) {
         this.id = id;
         this.nimi = nimi;

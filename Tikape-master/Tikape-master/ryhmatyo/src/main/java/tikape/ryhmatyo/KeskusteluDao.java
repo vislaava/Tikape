@@ -29,6 +29,7 @@ public class KeskusteluDao implements Dao<Keskustelu, Integer> {
     public Keskustelu findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelu WHERE rekisterinumero = ?");
+
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -86,3 +87,4 @@ public class KeskusteluDao implements Dao<Keskustelu, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
+

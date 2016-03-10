@@ -19,11 +19,13 @@ public class Keskustelu {
     private int aihealue;
 
 
-    Keskustelu(int id, String paivamaara, String nimi, int alue) {
+    public Keskustelu(int id, String pvm, String nimi, int aihe) {
         this.id = id;
         this.nimi = nimi;
-        this.paivamaara = paivamaara;
-        this.aihealue = alue;    }
+        this.paivamaara = pvm;
+        this.aihealue = aihe;
+    }
+
 
     public int getId() {
         return id;

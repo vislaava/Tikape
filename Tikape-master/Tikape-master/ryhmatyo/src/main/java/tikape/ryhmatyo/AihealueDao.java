@@ -6,10 +6,28 @@
  */
 package tikape.ryhmatyo;
 
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  *
  * @author DELL
  */
-public class AihealueDao {
+public class AihealueDao implements Dao {
+
+    @Override
+    public Object findOne(Object key) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List findAll() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Object key) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -14,16 +14,16 @@ import java.sql.Date;
 public class Keskustelu {
 
     private int id;
-    private Date paivamaara;
+    private String paivamaara;
     private String nimi;
-    private Aihealue aihealue;
+    private int aihealue;
 
-    public Keskustelu(int id, Date pvm, String nimi, Aihealue aihe) {
+
+    Keskustelu(int id, String paivamaara, String nimi, int alue) {
         this.id = id;
         this.nimi = nimi;
-        this.paivamaara=pvm;
-        this.aihealue=aihe;
-    }
+        this.paivamaara = paivamaara;
+        this.aihealue = alue;    }
 
     public int getId() {
         return id;
@@ -33,11 +33,11 @@ public class Keskustelu {
         return nimi;
     }
 
-    public Date getPaivamaara() {
+    public String getPaivamaara() {
         return paivamaara;
     }
 
-    public Aihealue getAihealue() {
+    public int getAihealue() {
         return aihealue;
     }
 
@@ -49,14 +49,12 @@ public class Keskustelu {
         this.nimi = nimi;
     }
 
-    public void setPaivamaara(Date paivamaara) {
+    public void setPaivamaara(String paivamaara) {
         this.paivamaara = paivamaara;
     }
 
-    public void setAihealue(Aihealue aihealue) {
+    public void setAihealue(int aihealue) {
         this.aihealue = aihealue;
     }
-    
-    
 
 }

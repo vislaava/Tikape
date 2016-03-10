@@ -14,23 +14,26 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  *
  * @author DELL
  */
-public class ViestiDao {
-     private Database database;
+public class ViestiDao implements Dao<Viesti, Integer> {
+
+    private Database database;
 
     public ViestiDao(Database database) {
         this.database = database;
     }
- 
+
 //    @Override
-    public Viesti findOne(String key) throws SQLException {
+    public Viesti findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pyora WHERE rekisterinumero = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -56,12 +59,41 @@ public class ViestiDao {
 
 //    @Override
     public List<Viesti> findAll() throws SQLException {
-	// ei toteutettu
-	return null;
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti");
+
+        ResultSet rs = stmt.executeQuery();
+        List<Viesti> viestit = new ArrayList<>();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String paivamaara = rs.getString("paivamaara");
+            String teksti = rs.getString("teksti");
+            String kirjoittaja = rs.getString("kirjoittaja");
+            int keskustelu = rs.getInt("keskustelu");
+
+            Viesti v = new Viesti(id, paivamaara, teksti, kirjoittaja, keskustelu);
+            viestit.add(v);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return viestit;
     }
 
-//    @Override
-    public void delete(String key) throws SQLException {
-        // ei toteutettu
+
+
+    @Override
+    public void delete(Integer key) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+
+    }
+
+    @Override
+    public List<Viesti> findAllIn(Collection<Integer> keys) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

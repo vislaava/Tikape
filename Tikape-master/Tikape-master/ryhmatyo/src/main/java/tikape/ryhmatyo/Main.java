@@ -15,18 +15,26 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:testi.db");
+        Database database = new Database("jdbc:sqlite:Keskustelupalsta.db");
+//        ViestiDao viestiDao = new ViestiDao(database);
+//        Viesti v = viestiDao.findOne(1);
+
+        AihealueDao aiheDao = new AihealueDao(database);
+        Aihealue a = aiheDao.findOne(1);
+
         database.setDebugMode(true);
-
-        database.update("INSERT INTO Viesti (paivamaara, teksti, kirjoittaja, keskustelu) VALUES ('2016-02-22', 'Hola!', 'Tanja', '1')");
         
-        List<Viesti> viestit = database.queryAndCollect("SELECT * FROM Viesti",
-                rs -> new Viesti(rs.getInt("id"), rs.getString("paivamaara"), rs.getString("teksti"), rs.getString("kirjoittaja"), rs.getInt("keskustelu")));
+        System.out.println(a.getId());
 
-        for (Viesti viesti : viestit) {
-            System.out.println(viesti.getTeksti());
-        }
-        
+//        database.update("INSERT INTO Viesti (paivamaara, teksti, kirjoittaja, keskustelu) VALUES ('2016-02-22', 'Hola!', 'Tanja', '1')");
+//
+//        List<Viesti> viestit = database.queryAndCollect("SELECT * FROM Viesti",
+//                rs -> new Viesti(rs.getInt("id"), rs.getString("paivamaara"), rs.getString("teksti"), rs.getString("kirjoittaja"), rs.getInt("keskustelu")));
+//
+//        for (Viesti viesti : viestit) {
+//            System.out.println(viesti.getTeksti());
+//        }
+
         System.out.println("Moronääs!");
 
         /////////get("/sivu", (req, res) -> {

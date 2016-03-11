@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -83,17 +84,36 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         return viestit;
     }
 
-
-
     @Override
     public void delete(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
 
     }
 
     @Override
     public List<Viesti> findAllIn(Collection<Integer> keys) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insert(Viesti oljo) throws SQLException {
+        Connection connection = database.getConnection();
+
+        String paivamaara = oljo.getPaivamaara();
+        String teksti = oljo.getTeksti();
+        String kirjoittaja = oljo.getKirjoittaja();
+        int keskustelu = oljo.getKeskustelu();
+
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viesti (paivamaara, teksti, kirjoittaja, keskustelu) VALUES (?, ?, ?, ?);");
+
+        stmt.setString(1, paivamaara);
+        stmt.setString(2, teksti);
+        stmt.setString(3, kirjoittaja);
+        stmt.setInt(4, keskustelu);
+
+        stmt.execute();
+        
+        stmt.close();
+        connection.close();
     }
 }

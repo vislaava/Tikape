@@ -25,6 +25,13 @@ public class Viesti {
         this.kirjoittaja = kirjoittaja;
         this.keskustelu = keskustelu;
     }
+    
+    public Viesti(String paivamaara, String teksti, String kirjoittaja, int keskustelu) {
+        this.paivamaara = paivamaara;
+        this.teksti = teksti;
+        this.kirjoittaja = kirjoittaja;
+        this.keskustelu = keskustelu;
+    }
 
     public int getId() {
         return id;

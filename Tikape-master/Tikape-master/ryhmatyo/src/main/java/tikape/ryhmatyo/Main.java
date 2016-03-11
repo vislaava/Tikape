@@ -6,10 +6,12 @@
 package tikape.ryhmatyo;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import spark.ModelAndView;
 import static spark.Spark.get;
+import static spark.Spark.post;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class Main {
@@ -19,13 +21,12 @@ public class Main {
 //        ViestiDao viestiDao = new ViestiDao(database);
 //        Viesti v = viestiDao.findOne(1);
 
-        AihealueDao aiheDao = new AihealueDao(database);
-        Aihealue a = aiheDao.findOne(1);
-
+//        AihealueDao aiheDao = new AihealueDao(database);
+//        Aihealue a = aiheDao.findOne(1);
+//
         database.setDebugMode(true);
-        
-        System.out.println(a.getId());
-
+//        
+//        System.out.println(a.getId());
 //        database.update("INSERT INTO Viesti (paivamaara, teksti, kirjoittaja, keskustelu) VALUES ('2016-02-22', 'Hola!', 'Tanja', '1')");
 //
 //        List<Viesti> viestit = database.queryAndCollect("SELECT * FROM Viesti",
@@ -34,13 +35,52 @@ public class Main {
 //        for (Viesti viesti : viestit) {
 //            System.out.println(viesti.getTeksti());
 //        }
+//        System.out.println("Moronääs!");
+        get("/sivu", (req, res) -> {
 
-        System.out.println("Moronääs!");
+            AihealueDao aihedao = new AihealueDao(database);
+            List<Aihealue> aiheetlista = aihedao.findAll();
 
-        /////////get("/sivu", (req, res) -> {
-        /////////    HashMap map = new HashMap<>();
-        /////////
-        /////////    return new ModelAndView(map, "index");
-        /////////}, new ThymeleafTemplateEngine());.
+//            for(Aihealue alue : aiheetlista) {
+//                System.out.println(alue.getId());
+//                System.out.println(alue.getNimi());
+//            }
+            HashMap map = new HashMap<>();
+            map.put("teksti", "Aihealueet");
+            map.put("aihealueet", aiheetlista);
+
+            return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
+
+        get("/sivu2", (req, res) -> {
+
+            HashMap map = new HashMap<>();
+            map.put("KeskustelunNimi", map);
+
+            return new ModelAndView(map, "keskustelut");
+        }, new ThymeleafTemplateEngine());
+
+        get("/sivu3", (req, res) -> {
+
+            ViestiDao viestidao = new ViestiDao(database);
+            List<Viesti> viestitlista = viestidao.findAll();
+
+            HashMap map = new HashMap<>();
+            map.put("teksti", "Viestit");
+            map.put("viestit", viestitlista);
+
+            return new ModelAndView(map, "yksiKeskustelu");
+            
+        }, new ThymeleafTemplateEngine());
+        
+        post("/opiskelijat", (req, res) -> {
+            String nimi = req.queryParams("nimi");
+            System.out.println("Vastaanotettiin " + nimi);
+            
+            String viesti = req.queryParams("viesti");
+            System.out.println("Vastaanotettiin " + viesti);
+            
+            return "Kerrotaan siitä tiedon lähettäjälle: " + nimi + viesti;
+        });
     }
 }

@@ -74,11 +74,8 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         post("/opiskelijat", (req, res) -> {
-            String nimi = req.queryParams("nimi");
-            System.out.println("Vastaanotettiin " + nimi);
-            
+            String nimi = req.queryParams("nimi");            
             String viesti = req.queryParams("viesti");
-            System.out.println("Vastaanotettiin " + viesti);
             
             Viesti viestioljo = new Viesti("pvm", viesti, nimi, 1);
             

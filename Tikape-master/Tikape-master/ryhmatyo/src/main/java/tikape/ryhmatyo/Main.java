@@ -53,15 +53,17 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         get("/sivu2", (req, res) -> {
-
+            KeskusteluDao keskudao = new KeskusteluDao(database);
+            List<Keskustelu> keskulista = keskudao.findAll();
+            
             HashMap map = new HashMap<>();
-            map.put("KeskustelunNimi", map);
+            map.put("teksti", "Keskustelut");
+            map.put("keskustelut", keskulista);
 
             return new ModelAndView(map, "keskustelut");
         }, new ThymeleafTemplateEngine());
 
         get("/sivu3", (req, res) -> {
-
             ViestiDao viestidao = new ViestiDao(database);
             List<Viesti> viestitlista = viestidao.findAll();
 
@@ -70,7 +72,6 @@ public class Main {
             map.put("viestit", viestitlista);
 
             return new ModelAndView(map, "yksiKeskustelu");
-            
         }, new ThymeleafTemplateEngine());
         
         post("/opiskelijat", (req, res) -> {

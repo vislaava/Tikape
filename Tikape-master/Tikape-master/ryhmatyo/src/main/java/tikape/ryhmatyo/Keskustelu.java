@@ -26,6 +26,11 @@ public class Keskustelu {
         this.aihealue = aihe;
     }
 
+    public Keskustelu(String pvm, String nimi, int aihe) {
+        this.nimi = nimi;
+        this.paivamaara = pvm;
+        this.aihealue = aihe;
+    }
 
     public int getId() {
         return id;

@@ -89,7 +89,20 @@ public class KeskusteluDao implements Dao<Keskustelu, Integer> {
 
     @Override
     public void insert(Keskustelu oljo) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = database.getConnection();
+
+        String paivamaara = oljo.getPaivamaara();
+        String nimi = oljo.getNimi();
+        int aihealue = oljo.getAihealue();
+
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Keskustelu (paivamaara, nimi, aihealue) VALUES (?, ?, ?);");
+
+        stmt.setString(1, paivamaara);
+        stmt.setString(2, nimi);
+        stmt.setInt(3, aihealue);
+        stmt.execute();
+
+        stmt.close();
+        connection.close();
     }
 }
-

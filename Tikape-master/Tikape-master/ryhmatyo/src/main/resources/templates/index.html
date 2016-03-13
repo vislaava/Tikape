@@ -10,13 +10,17 @@
         <h1>Hei maailma!</h1>
 
         <h2 th:text="${teksti}">testi</h2>
-        <h2 th:text="${aihealueet}">aiheet</h2>
 
-        <ul>
-            <li th:each="aihealue: ${aihealueet}">
-                <span th:text="${aihealue.id}">1</span> <span th:text="${aihealue.nimi}">Essi esimerkki</span>
-            </li>
-        </ul>
+        <table style="width:100%">
+            <tr>
+                <td>Id</td>
+                <td>Nimi</td>
+            </tr>
+            <tr th:each="aihealue: ${aihealueet}">
+                <td><span th:text="${aihealue.id}">1</span> </td>
+                <td><span th:text="${aihealue.nimi}">Essi esimerkki</span> </td>
+            </tr>
+        </table>
 
     </body>
 </html>

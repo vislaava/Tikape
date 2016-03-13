@@ -19,6 +19,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Database database = new Database("jdbc:sqlite:Keskustelupalsta.db");
         ViestiDao viestiDao = new ViestiDao(database);
+        KeskusteluDao keskuDao = new KeskusteluDao(database);
 //        Viesti v = viestiDao.findOne(1);
 
 //        AihealueDao aiheDao = new AihealueDao(database);
@@ -81,6 +82,17 @@ public class Main {
             Viesti viestioljo = new Viesti("pvm", viesti, nimi, 1);
             
             viestiDao.insert(viestioljo);
+            
+            return "Kerrotaan siitä tiedon lähettäjälle: " + nimi + viesti;
+        });
+        
+        post("/uusiKeskustelu", (req, res) -> {
+            String nimi = req.queryParams("nimi");            
+            String viesti = req.queryParams("viesti");
+            
+            Keskustelu keskuoljo = new Keskustelu("pvm", nimi, 2);
+            
+            keskuDao.insert(keskuoljo);
             
             return "Kerrotaan siitä tiedon lähettäjälle: " + nimi + viesti;
         });

@@ -49,9 +49,15 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         get("/sivu2", (req, res) -> {
-            KeskusteluDao keskudao = new KeskusteluDao(database);
-            List<Keskustelu> keskulista = keskudao.findAll();
             
+            String id = req.queryParams("id");            
+            int id2 = Integer.parseInt(id);
+            KeskusteluDao keskudao = new KeskusteluDao(database);
+            
+            List<Keskustelu> keskulista = keskudao.findAll();
+        
+            List<Keskustelu> k = new ArrayList<>();
+            k.add(keskudao.findOne(id2));
             HashMap map = new HashMap<>();
             map.put("teksti", "Keskustelut");
             map.put("keskustelut", keskulista);
@@ -89,7 +95,16 @@ public class Main {
             
             keskuDao.insert(keskuoljo);
             
-            return "Kerrotaan siitÃ¤ tiedon lÃ¤hettÃ¤jÃ¤lle: " + nimi + viesti;
+            return "Viesti on vastaanotettu: " + nimi + viesti;
+        });
+        
+        post("/sivu2", (req, res) -> {
+            String id = req.queryParams("id");            
+            int id2 = Integer.parseInt(id);
+            
+            keskuDao.findOne(id2);
+            
+            return "Viesti on vastaanotettu: " + id;
         });
     }
 }

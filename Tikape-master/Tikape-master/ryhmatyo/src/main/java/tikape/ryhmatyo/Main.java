@@ -36,16 +36,11 @@ public class Main {
 //        for (Viesti viesti : viestit) {
 //            System.out.println(viesti.getTeksti());
 //        }
-//        System.out.println("Moronääs!");
         get("/sivu", (req, res) -> {
 
             AihealueDao aihedao = new AihealueDao(database);
             List<Aihealue> aiheetlista = aihedao.findAll();
 
-//            for(Aihealue alue : aiheetlista) {
-//                System.out.println(alue.getId());
-//                System.out.println(alue.getNimi());
-//            }
             HashMap map = new HashMap<>();
             map.put("teksti", "Aihealueet");
             map.put("aihealueet", aiheetlista);
@@ -54,9 +49,11 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         get("/sivu2", (req, res) -> {
-            KeskusteluDao keskudao = new KeskusteluDao(database);
-            List<Keskustelu> keskulista = keskudao.findAll();
             
+            KeskusteluDao keskudao = new KeskusteluDao(database);
+            
+            List<Keskustelu> keskulista = keskudao.findAll();
+
             HashMap map = new HashMap<>();
             map.put("teksti", "Keskustelut");
             map.put("keskustelut", keskulista);
@@ -75,7 +72,7 @@ public class Main {
             return new ModelAndView(map, "yksiKeskustelu");
         }, new ThymeleafTemplateEngine());
         
-        post("/opiskelijat", (req, res) -> {
+        post("/uusiViesti", (req, res) -> {
             String nimi = req.queryParams("nimi");            
             String viesti = req.queryParams("viesti");
             
@@ -83,7 +80,7 @@ public class Main {
             
             viestiDao.insert(viestioljo);
             
-            return "Kerrotaan siitä tiedon lähettäjälle: " + nimi + viesti;
+            return "Kerrotaan siitÃ¤ tiedon lÃ¤hettÃ¤jÃ¤lle: " + nimi + viesti;
         });
         
         post("/uusiKeskustelu", (req, res) -> {
@@ -94,7 +91,16 @@ public class Main {
             
             keskuDao.insert(keskuoljo);
             
-            return "Kerrotaan siitä tiedon lähettäjälle: " + nimi + viesti;
+            return "Viesti on vastaanotettu: " + nimi + viesti;
+        });
+        
+        post("/sivu2", (req, res) -> {
+            String id = req.queryParams("id");            
+            int id2 = Integer.parseInt(id);
+            
+            keskuDao.findOne(id2);
+            
+            return "Viesti on vastaanotettu: " + id;
         });
     }
 }

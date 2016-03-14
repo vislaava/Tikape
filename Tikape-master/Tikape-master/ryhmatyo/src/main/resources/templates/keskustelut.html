@@ -21,7 +21,9 @@
             <tr th:each="keskustelu: ${keskustelut}">
                 <td><span th:text="${keskustelu.id}">1</span> </td>
                 <td><span th:text="${keskustelu.paivamaara}">Essi esimerkki</span> </td>
-                <td><span th:text="${keskustelu.nimi}">Essi esimerkki</span> </td>
+                <td><span th:text="${keskustelu.nimi}">Essi esimerkki</span> 
+                 <a href="/sivu2">view</a>
+                </td>
             </tr>
         </table>
         

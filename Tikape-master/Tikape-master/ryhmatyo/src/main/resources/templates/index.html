@@ -18,7 +18,9 @@
             </tr>
             <tr th:each="aihealue: ${aihealueet}">
                 <td><span th:text="${aihealue.id}">1</span> </td>
-                <td><span th:text="${aihealue.nimi}">Essi esimerkki</span> </td>
+                <td><span th:text="${aihealue.nimi}">Essi esimerkki</span> 
+                <a href="/sivu2">view</a>
+                </td>
             </tr>
         </table>
 

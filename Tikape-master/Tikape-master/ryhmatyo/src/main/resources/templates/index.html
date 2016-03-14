@@ -17,14 +17,8 @@
                 <td>Nimi</td>
             </tr>
             <tr th:each="aihealue: ${aihealueet}">
-                <td><span th:text="${aihealue.id}">1</span> </td>
-
-                <td><span th:text="${aihealue.nimi}">Essi esimerkki</span> 
-                <a href="/sivu2">view</a>
-                </td>
-=======
-                <td><span th:text="${aihealue.nimi}">Essi esimerkki </span> <a href="http://localhost:4567/sivu2">view</a> </td>
-
+                <td><a th:href="|/alue/${aihealue.id}|" th:text="${aihealue.id}">1</a> </td>
+                <td><a th:href="|/alue/${aihealue.nimi}|" th:text="${aihealue.nimi}">1</a> </td>
             </tr>
         </table>
 

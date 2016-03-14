@@ -79,7 +79,31 @@ public class KeskusteluDao implements Dao<Keskustelu, Integer> {
 
     @Override
     public List<Keskustelu> findAllIn(Collection<Integer> keys) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelu WHERE aihealue=?");
+        List<Keskustelu> kesk = new ArrayList<>();
+        for (int k : keys) {
+            stmt.setInt(1, k);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String paivamaara = rs.getString("paivamaara");
+                String nimi = rs.getString("nimi");
+                int alue = rs.getInt("aihealue");
+
+                Keskustelu ke = new Keskustelu(id, paivamaara, nimi, alue);
+                kesk.add(ke);
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+
+        }
+
+        return kesk;
+
     }
 
     @Override

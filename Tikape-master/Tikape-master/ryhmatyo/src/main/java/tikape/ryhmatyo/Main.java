@@ -7,6 +7,7 @@ package tikape.ryhmatyo;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import spark.ModelAndView;
@@ -49,9 +50,9 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         get("/sivu2", (req, res) -> {
-            
+
             KeskusteluDao keskudao = new KeskusteluDao(database);
-            
+
             List<Keskustelu> keskulista = keskudao.findAll();
 
             HashMap map = new HashMap<>();
@@ -71,36 +72,54 @@ public class Main {
 
             return new ModelAndView(map, "yksiKeskustelu");
         }, new ThymeleafTemplateEngine());
-        
+
         post("/uusiViesti", (req, res) -> {
-            String nimi = req.queryParams("nimi");            
+            String nimi = req.queryParams("nimi");
             String viesti = req.queryParams("viesti");
-            
+
             Viesti viestioljo = new Viesti("pvm", viesti, nimi, 1);
-            
+
             viestiDao.insert(viestioljo);
-            
+
             return "Kerrotaan siitÃ¤ tiedon lÃ¤hettÃ¤jÃ¤lle: " + nimi + viesti;
         });
-        
+
         post("/uusiKeskustelu", (req, res) -> {
-            String nimi = req.queryParams("nimi");            
+            String nimi = req.queryParams("nimi");
             String viesti = req.queryParams("viesti");
-            
+
             Keskustelu keskuoljo = new Keskustelu("pvm", nimi, 2);
-            
+
             keskuDao.insert(keskuoljo);
-            
+
             return "Viesti on vastaanotettu: " + nimi + viesti;
         });
-        
+
         post("/sivu2", (req, res) -> {
-            String id = req.queryParams("id");            
+            String id = req.queryParams("id");
             int id2 = Integer.parseInt(id);
-            
+
             keskuDao.findOne(id2);
-            
+
             return "Viesti on vastaanotettu: " + id;
         });
+
+        get("/alue/:id", (req, res) -> {
+
+            HashMap map = new HashMap<>();
+            map.put("teksti", req.params("id"));
+            Collection<Integer> kokoelma = new ArrayList<>();
+            String id = req.params("id");
+            
+            int idd = Integer.parseInt(id);
+            kokoelma.add(idd);
+
+            List<Keskustelu> keskustelut = keskuDao.findAllIn(kokoelma);
+            
+            map.put("keskustelut", keskustelut);
+
+            return new ModelAndView(map, "keskustelut");
+        }, new ThymeleafTemplateEngine());
+
     }
 }

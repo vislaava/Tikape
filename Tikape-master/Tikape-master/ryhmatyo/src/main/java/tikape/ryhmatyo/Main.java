@@ -88,9 +88,9 @@ public class Main {
 
         post("/uusiKeskustelu", (req, res) -> {
             String nimi = req.queryParams("nimi");
-            String viesti = req.queryParams("viesti");
+            String viesti = req.queryParams("otsikko");
 
-            Keskustelu keskuoljo = new Keskustelu("pvm", nimi, 2);
+            Keskustelu keskuoljo = new Keskustelu("pvm", nimi, Integer.parseInt(req.queryParams("aiheelualue")));
 
             keskuDao.insert(keskuoljo);
 
@@ -129,7 +129,7 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("teksti", req.params("id"));
             Collection<Integer> kokoelma = new ArrayList<>();
-            
+
             System.out.println("id");
             String id = req.params(":id");
             System.out.println(id);
@@ -141,10 +141,7 @@ public class Main {
 
             map.put("teksti", "Viestit");
             map.put("viestit", viestit);
-
-            
-            
-            
+            map.put("keskustelualue", req.params(":id"));
 
             return new ModelAndView(map, "yksiKeskustelu");
         }, new ThymeleafTemplateEngine());

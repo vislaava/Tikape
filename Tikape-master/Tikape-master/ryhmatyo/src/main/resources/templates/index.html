@@ -7,7 +7,6 @@
     </head>
 
     <body>
-        <h1>Hei maailma!</h1>
 
         <h2 th:text="${teksti}">testi</h2>
 
@@ -17,16 +16,13 @@
                 <td>Nimi</td>
             </tr>
             <tr th:each="aihealue: ${aihealueet}">
+                <td><a th:href="@{~/alue/{id}(id=${aihealue.id})}" th:text="${aihealue.id}">1</a> </td>
                 <td><a th:href="@{~/alue/{id}(id=${aihealue.id})}" th:text="${aihealue.nimi}">1</a> </td>
-                <!-- <td><a th:href="@{~/alue/${aihealue.nimi}|" th:text="${aihealue.nimi}">1</a> </td>-->
+                
             </tr>
         </table>
 
-        <form method="POST" action="/sivu2">
-            Kirjoita haluamasi keskustelun id:<br/>
-            <input type="text" name="id"/><br/>
-            <input type="submit" value="Siirry keskusteluun"/>
-        </form>
+
 
     </body>
 </html>

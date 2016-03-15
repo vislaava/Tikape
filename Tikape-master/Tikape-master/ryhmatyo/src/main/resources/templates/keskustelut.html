@@ -11,7 +11,7 @@
 
         <h2 th:text="${teksti}">testi</h2>
         <br/>
-        
+
         <table style="width:100%">
             <tr>
                 <td>Id</td>
@@ -19,19 +19,17 @@
                 <td>Nimi</td>
             </tr>
             <tr th:each="keskustelu: ${keskustelut}">
-                <td><span th:text="${keskustelu.id}">1</span> </td>
-                <td><span th:text="${keskustelu.paivamaara}">Essi esimerkki</span> </td>
-                <td><span th:text="${keskustelu.nimi}">Essi esimerkki</span> 
-                 <a href="/sivu2">view</a>
-                </td>
+                <td><a th:href="|/alue/${keskustelu.aihealue}/keskustelu/${keskustelu.id}|" th:text="${keskustelu.id}">1</a> </td>
+                <td><a th:href="@{~/keskustelu/{nimi}(nimi=${keskustelu.nimi})}" th:text="${keskustelu.nimi}">1</a> </td>
+
             </tr>
         </table>
-        
+
         <form method="POST" action="/uusiKeskustelu">
             Nimi:<br/>
             <input type="text" name="nimi"/><br/>
             <input type="submit" value="Lähetä viesti"/>
         </form>
-        
+
     </body>
 </html>

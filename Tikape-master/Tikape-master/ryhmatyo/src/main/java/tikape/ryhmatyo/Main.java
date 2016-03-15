@@ -69,9 +69,9 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("teksti", "Viestit");
             map.put("viestit", viestitlista);
-            
+
             map.put("keskustelualue", 1);
-            
+
             return new ModelAndView(map, "yksiKeskustelu");
         }, new ThymeleafTemplateEngine());
 
@@ -83,7 +83,7 @@ public class Main {
 
             viestiDao.insert(viestioljo);
 
-            return "Kerrotaan siitÃ¤ tiedon lÃ¤hettÃ¤jÃ¤lle: " + nimi + viesti;
+            return "Kerrotaan siitÃƒÂ¤ tiedon lÃƒÂ¤hettÃƒÂ¤jÃƒÂ¤lle: " + nimi + viesti;
         });
 
         post("/uusiKeskustelu", (req, res) -> {
@@ -111,18 +111,42 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("teksti", req.params("id"));
             Collection<Integer> kokoelma = new ArrayList<>();
-            
-            
+
             String id = req.params(":id");
-            
+
             int idd = Integer.parseInt(id);
             kokoelma.add(idd);
 
             List<Keskustelu> keskustelut = keskuDao.findAllIn(kokoelma);
-            
+
             map.put("keskustelut", keskustelut);
 
             return new ModelAndView(map, "keskustelut");
+        }, new ThymeleafTemplateEngine());
+
+        get("alue/:id1/keskustelu/:id", (req, res) -> {
+
+            HashMap map = new HashMap<>();
+            map.put("teksti", req.params("id"));
+            Collection<Integer> kokoelma = new ArrayList<>();
+            
+            System.out.println("id");
+            String id = req.params(":id");
+            System.out.println(id);
+
+            int idd = Integer.parseInt(id);
+            kokoelma.add(idd);
+
+            List<Viesti> viestit = viestiDao.findAllIn(kokoelma);
+
+            map.put("teksti", "Viestit");
+            map.put("viestit", viestit);
+
+            
+            
+            
+
+            return new ModelAndView(map, "yksiKeskustelu");
         }, new ThymeleafTemplateEngine());
 
     }

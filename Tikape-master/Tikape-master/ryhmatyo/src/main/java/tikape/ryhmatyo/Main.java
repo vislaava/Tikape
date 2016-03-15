@@ -69,7 +69,9 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("teksti", "Viestit");
             map.put("viestit", viestitlista);
-
+            
+            map.put("keskustelualue", 1);
+            
             return new ModelAndView(map, "yksiKeskustelu");
         }, new ThymeleafTemplateEngine());
 
@@ -77,7 +79,7 @@ public class Main {
             String nimi = req.queryParams("nimi");
             String viesti = req.queryParams("viesti");
 
-            Viesti viestioljo = new Viesti("pvm", viesti, nimi, 1);
+            Viesti viestioljo = new Viesti("pvm", viesti, nimi, Integer.parseInt(req.queryParams("keskustelualue")));
 
             viestiDao.insert(viestioljo);
 
@@ -109,7 +111,9 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("teksti", req.params("id"));
             Collection<Integer> kokoelma = new ArrayList<>();
-            String id = req.params("id");
+            
+            
+            String id = req.params(":id");
             
             int idd = Integer.parseInt(id);
             kokoelma.add(idd);
